@@ -16,7 +16,7 @@
     "querido",
     "aluno"
   ],
-  "author": "Matheus",
+  "author": "Leandro",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
