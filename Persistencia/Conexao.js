@@ -19,7 +19,7 @@ export default async function conectar(){
             "connectTimeout":60000,
             "waitForConnections":true,
             "connectionLimit":20,
-            "queueLimit":20
+            "queueLimit":10
         });
         return await global.poolConexoes.getConnection();
     }

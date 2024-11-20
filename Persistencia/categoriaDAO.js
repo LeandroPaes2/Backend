@@ -8,7 +8,7 @@ export default class CategoriaDAO{
     }
 
     async init(){
-        try{
+        try {
             const conexao = await conectar();
             const sql = `
                 CREATE TABLE IF NOT EXISTS categoria(
@@ -19,22 +19,24 @@ export default class CategoriaDAO{
             `;
             await conexao.execute(sql);
             await conexao.release();
-
+        } catch (erro) {
+            console.error("Erro ao iniciar a tabela categoria: ", erro.message);
         }
-        catch(erro){
-            console.log("Erro ao iniciar a tabela categoria!");
-        }
+        
     }
 
     async gravar(categoria){
-        if (categoria instanceof Categoria){
+        if (categoria instanceof Categoria && categoria.descricao) {
             const conexao = await conectar();
             const sql = "INSERT INTO categoria(cat_descricao) VALUES (?)";
             const parametros = [categoria.descricao];
-            const resultado = await conexao.execute(sql,parametros);
+            const resultado = await conexao.execute(sql, parametros);
             categoria.codigo = resultado[0].insertId;
             await conexao.release();
+        } else {
+            throw new Error("Categoria inválida ou descrição ausente");
         }
+        
     }
     
     async editar(categoria){
